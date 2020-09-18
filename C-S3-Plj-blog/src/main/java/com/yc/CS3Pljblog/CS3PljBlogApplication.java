@@ -16,12 +16,7 @@ public class CS3PljBlogApplication implements WebMvcConfigurer {
 	public static void main(String[] args) {
 		SpringApplication.run(CS3PljBlogApplication.class, args);
 	}
-
-	/**
-	 * 	拦截器注册方法
-	 * 	参数: 拦截器注册器
-	 */
-	@Override
+    @Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		WebMvcConfigurer.super.addInterceptors(registry);
 
