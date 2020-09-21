@@ -1,6 +1,8 @@
 package com.yc.crbook.bean;
 
-public class CrCategroy {
+public class CrCategroy implements java.io.Serializable{
+    
+	private static final long serialVersionUID = 1L;
     private Integer id;
 
     private String name;
