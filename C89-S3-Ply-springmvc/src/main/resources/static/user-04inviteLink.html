@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="keywords" content="旧书,二手书,二手教材,旧教材,校园书籍,校园旧书，旧书网">
+<meta name="description" content="买卖二手书，就上旧书街">
+<meta name="language" content="zh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="res/form.css">
+<link rel="stylesheet" type="text/css" href="res/pager.css">
+<link rel="stylesheet" type="text/css" href="res/ubm_basic.css">
+<link rel="shortcut icon"
+	href="http://cdnfile.jiushujie.com/images/ubm.ico" type="image/x-icon">
+<script type="text/javascript" src="https://lib.baomitu.com/vue/2.6.12/vue.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+<script type="text/javascript" src="js/jsj.js"></script>
+<title>买卖二手书,就上旧书街</title>
+</head>
+<body>
+	<div id="yetou">
+		<yetou></yetou>
+	</div>
+	<script type="text/javascript">
+		var v119 = new Vue({
+			el:"#yetou"
+		})
+	</script>
+	<div id="top">
+		<top></top>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#top"
+		})
+	</script>
+	<div class="main_middle">
+		<div id="main_content" class="center_980">
+			<div id="pc">
+				<pc uid = "4"></pc>
+			</div>
+			<script type="text/javascript">
+				new Vue({
+					el : "#pc"
+				})
+			</script>
+			<div class="content_right">
+				<div class="border_white padding_10">
+					<div class="page_title">我的邀请链接</div>
+					<div class="padding_10" v-if="inviteId!=null">
+						<p>将下面的链接发给朋友，朋友注册后，你就是TA的注册推荐人喽</p>
+						<br> <a style="font-size: 14px;"
+							:href="'http://127.0.0.1/register.html?'+inviteId">
+							http://127.0.0.1/register.html?{{inviteId}} </a>
+					</div>
+					<div class="padding_10">
+					<a><img :src="qrImg"></a>
+					</div>
+					
+				</div>
+			</div>
+			<script type="text/javascript">
+			  var v=new Vue({
+				  el:".content_right",
+				  data:{
+					  inviteId:"",
+					  qrImg:"",
+					  
+				  },
+				  created(){
+				   axios.get("selectUserInviteId.do").then(res=>{
+					 this.inviteId=res.data.inviteId;
+					 this.qrImg=res.data.qrImg;
+				  })
+				 }
+			  })
+			
+			</script>
+			<div class="clearfloat"></div>
+		</div>
+	</div>
+	<div style="border-bottom: 1px solid rgb(255, 255, 255);"></div>
+	<div style="position: fixed; top: 122px; right: 20px;">
+		<img style="width: 120px; margin-bottom: 10px;"
+			src="res/ios_download.jpg"><br> <img
+			style="width: 120px; margin-bottom: 10px;"
+			src="res/android_download.jpg">
+	</div>
+	<div class="clearfloat"></div>
+	<div id="foot">
+	<foot></foot>	
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:"#foot"
+		})
+	</script>
+	<h1 class="jiushujie_slogan">买卖二手书，就上旧书街。旧书街二手书交易网-您身边的旧书网站</h1>
+</body>
+</html>

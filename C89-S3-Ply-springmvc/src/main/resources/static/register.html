@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="keywords" content="旧书,二手书,二手教材,旧教材,校园书籍,校园旧书，旧书网">
+<meta name="description" content="买卖二手书，就上旧书街">
+<meta name="language" content="zh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="res/form.css">
+<link rel="stylesheet" type="text/css" href="res/pager.css">
+<link rel="stylesheet" type="text/css" href="res/ubm_basic.css">
+<link rel="shortcut icon"
+	href="http://cdnfile.jiushujie.com/images/ubm.ico" type="image/x-icon">
+
+<script type="text/javascript" src="https://lib.baomitu.com/vue/2.6.12/vue.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+<script type="text/javascript"
+	src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/jsj.js"></script>
+<title>买卖二手书,就上旧书街</title>
+</head>
+<body>
+	<div id="yetou">
+		<yetou></yetou>
+	</div>
+	<script type="text/javascript">
+		var v119 = new Vue({
+			el:"#yetou"
+		})
+	</script>
+	<div id="top">
+		<top></top>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#top"
+		})
+	</script>
+	<div class="main_middle">
+		<div id="main_content" class="center_980">
+			<div class="content_left">
+				<div class="border_white align_center padding_10">
+					<div
+						style="font-size: 30px; font-weight: bold; color: rgb(167, 167, 167);">已有旧书街账号?</div>
+					<br> <input class="button" name="yt0" type="button"
+						value="立即登录">
+				</div>
+				<div style="margin-top: 20px;">
+					<div id="mul">
+						<mul></mul>
+					</div>
+					<script type="text/javascript">
+						new Vue({
+							el : "#mul"
+						})
+					</script>
+				</div>
+			</div>
+			<div class="content_right">
+				<div class="form border_white padding_10">
+					<div class="page_title">新用户注册</div>
+					<div style="padding-left: 20px;">请注意，注册资料除密码外，提交后不能再修改哦!</div>
+					<form id="user-regist-form" action="/regist" method="post">
+						<input type="hidden"
+							value="X0J2bzJPTlJDNnVKR1VlM2MyZGxSM3kwdk5RdnlQZVBZ3-XQ36kulkbowelmV8XT2E7ueyPvc9Wu5p6UlRqdvA=="
+							name="YII_CSRF_TOKEN">
+						<table class="ubm_input">
+							<tbody>
+								<tr>
+									<td><label for="UserRegist_cellphone" class="required">手机号
+											<span class="required">*</span>
+									</label></td>
+									<td><input maxlength="15" class="ubm_textinput"
+										name="phone" id="UserRegist_cellphone"
+										type="text" v-model="user.phone"></td>
+									<td><div>{{errors.phone}}</div></td>
+								</tr>
+								<tr>
+									<td><label for="UserRegist_cellphone" class="required">账号
+											<span class="required">*</span>
+									</label></td>
+									<td><input maxlength="15" class="ubm_textinput"
+										name="account" id="UserRegist_cellphone"
+										type="text" v-model="user.account"></td>
+									<td><div>{{errors.account}}</div></td>
+								</tr>
+								<tr>
+									<td><label for="UserRegist_cellphone" class="required">密码
+											<span class="required">*</span>
+									</label></td>
+									<td><input maxlength="15" class="ubm_textinput"
+										name="pwd" id="UserRegist_cellphone"
+										type="text" v-model="user.pwd"></td>
+									<td><div>{{errors.pwd}}</div></td>
+								</tr>
+								<tr>
+									<td><label for="UserRegist_cellphone" class="required">邮箱
+											<span class="required">*</span>
+									</label></td>
+									<td><input maxlength="30" class="ubm_textinput"
+										name="email" id="UserRegist_cellphone"
+										type="text" v-model="user.email"></td>
+									<td><div>{{errors.email}}</div></td>
+								</tr>
+								<tr>
+									<td><label for="UserRegist_cellphone" class="required">昵称
+											<span class="required">*</span>
+									</label></td>
+									<td><input maxlength="15" class="ubm_textinput"
+										name="name" id="UserRegist_cellphone"
+										type="text" v-model="user.name"></td>
+									<td><div>{{errors.name}}</div></td>
+								</tr>
+								<tr>
+									<td><label for="UserRegist_gender" class="required">性别
+											<span class="required">*</span>
+									</label></td>
+									<td><select class="ubm_textinput"
+										name="gender" id="UserRegist_gender" v-model="user.gender">
+											<option value="" selected="selected">-- 请选择 --</option>
+											<option value="m">男生</option>
+											<option value="f">女生</option>
+									</select></td>
+									<td><div id="UserRegist_genderTip" class="onShow"
+											style="margin: 0px; padding: 0px; background: transparent;">{{errors.gender}}</div></td>
+											
+								</tr>
+								<tr v-if="user.inviteName!=null">
+									<td><label for="UserRegist_cellphone" class="required">邀请人
+											<span class="required"></span>
+									</label></td>
+									<td><input maxlength="15" class="ubm_textinput"
+										name="name" id="UserRegist_cellphone" value="user.inviteName"
+										type="text"  readonly="true" v-model="user.inviteName"></td>
+									
+								</tr>
+								<tr>
+									<td></td>
+									<td><input id="regist_accept" value="1" checked="checked"
+										type="checkbox"> &nbsp;接受旧书街&nbsp;<a target="_blank"
+										href="/site/term">服务条款</a></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+						<div class="margin_left_134">
+							<input id="submit_button" class="button" type="button" name="yt1"
+								@click="regist" value="提交注册">
+						</div>
+					</form>
+					<script type="text/javascript">
+						var v = new Vue({
+							el : "#user-regist-form",
+							data : {
+								user : {
+									phone : "",
+									account : "",
+									name : "",
+									email : "",
+									pwd : "",
+									gender:"",
+									inviteName:"",
+								},
+								errors : {
+									phone : "",
+									account : "",
+									name : "",
+									email : "",
+									pwd : "",
+									gender:"",
+									
+								},
+								
+							},
+							created(){
+								axios.get("getLoginedUser.do").then(res=>{
+        							if( res.data.code==0 ){
+        								var inviteId = location.search.substring(1);
+        								axios.get("queryByInviteId.do?inviteId="+inviteId).then(res=>{
+        									this.user.inviteName=res.data.account;
+        								})
+        							}else{
+        								alert("您还没有退出");
+        								location.href="user-04inviteLink.html"
+        							}
+        					});
+						},
+							methods : {
+								regist(){
+									var param = new URLSearchParams();
+									param.append('phone',this.user.phone);
+									param.append('account',this.user.account);
+									param.append('name',this.user.name);
+									param.append('email',this.user.email);
+									param.append('pwd',this.user.pwd);
+									param.append('gender',this.user.gender);
+									param.append('inviteName',this.user.inviteName);
+									axios.post("regist.do",param).then(res=>{
+										if(res.data.code==1){
+											alert(res.data.msg);
+											location.href="login.html"
+										}
+										// 清除之前的错误提示
+										for( let e in this.errors){  // let 定义的局部变量  ~=  var
+											var na = document.getElementsByName(e);
+											$(na).css('boxShadow','');
+											this.errors[e] = '';
+										}
+										// 如果code不等于1，表示失败，要将错误提示展示在页面
+										if(res.data.code != 1){
+											// 将报错信息展示到对应的字段下面
+											var es = res.data.data;
+											for( let e of es){  // == java for( e : es)
+												var na = document.getElementsByName(e.field);
+												$(na).css("boxShadow","0px 0px 5px 3px red");	
+												this.errors[e.field] = e.defaultMessage;  // [ ] 对对象的数字哪个复制
+											}
+										}
+									})
+								}
+							}
+						})
+					</script>
+				</div>
+			</div>
+			<div class="clearfloat"></div>
+
+			<style type="text/css">
+div#img_verify table.ubm_input td {
+	text-align: center;
+	width: 400px;
+}
+</style>
+
+		</div>
+	</div>
+
+	<div style="border-bottom: 1px solid rgb(255, 255, 255);"></div>
+	<div style="position: fixed; top: 122px; right: 20px;">
+		<img style="width: 120px; margin-bottom: 10px;"
+			src="res/ios_download.jpg"><br> <img
+			style="width: 120px; margin-bottom: 10px;"
+			src="res/android_download.jpg">
+	</div>
+	<div class="clearfloat"></div>
+	<div id="foot">
+	<foot></foot>	
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:"#foot"
+		})
+	</script>
+	<h1 class="jiushujie_slogan">买卖二手书，就上旧书街。旧书街二手书交易网-您身边的旧书网站</h1>
+</body>
+</html>

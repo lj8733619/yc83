@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="keywords" content="旧书,二手书,二手教材,旧教材,校园书籍,校园旧书，旧书网">
+<meta name="description" content="买卖二手书，就上旧书街">
+<meta name="language" content="zh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="res/form.css">
+<link rel="stylesheet" type="text/css" href="res/ubm_basic.css">
+<link rel="shortcut icon"
+	href="http://cdnfile.jiushujie.com/images/ubm.ico" type="image/x-icon">
+	
+<script type="text/javascript" src="https://lib.baomitu.com/vue/2.6.12/vue.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript" src="js/jsj.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<title>买卖二手书,就上旧书街</title>
+<style type="text/css">
+	#focus{width:980px;height:280px;overflow:hidden;position:relative;margin-bottom: 10px;margin-top: -10px;}
+	#focus ul{height:380px;position:absolute;}
+	#focus ul li{float:left;width:980px;height:280px;overflow:hidden;position:relative;background:#000;}
+	#focus ul li img{width:980px;height:280px;}
+	#focus ul li div{position:absolute;overflow:hidden;}
+	#focus .btnBg{position:absolute;width:980px;height:20px;left:0;bottom:0;background:#000;}
+	#focus .btn{position:absolute;width:960px;height:10px;padding:5px 10px;right:0;bottom:0;text-align:center;}
+	#focus .btn span{display:inline-block;_display:inline;_zoom:1;width:10px;height:10px;border-radius: 5px;_font-size:0;margin-left:5px;cursor:pointer;background:#fff;}
+	#focus .btn span.on{background:#fff;}
+	#focus .preNext{width:45px;height:100px;position:absolute;top:90px;background:url(http://www.jiushujie.com/themes/classic/assets/images/sprite.png) no-repeat 0 0;cursor:pointer;}
+	#focus .pre{left:0;}
+	#focus .next{right:0;background-position:right top;}
+</style>
+
+</head>
+<body>
+	<div id="yetou">
+		<yetou></yetou>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#yetou"
+		})
+	</script>
+	<div id="top">
+		<top></top>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#top"
+		})
+	</script>
+	<div class="main_middle">
+		<div id="main_content" class="center_980">
+			<div id="focus">
+    			<ul>
+		        	<li v-for="f in list"><a href="#" target="_blank"><img :src="f.img"/></a></li>
+		        </ul>
+			</div>
+			 <script type="text/javascript">
+				new Vue({
+					el:"#focus",
+					data:{
+						list : []
+					},
+					created(){
+						axios.get("focus?state=1").then(res=>{
+							this.list=res.data;
+						})
+					}
+				})
+				
+			</script>
+			<div class="border_white" style="margin-bottom: 10px; padding: 10px;">
+				<div class="search_tag">
+					<span style="font-size: 16px;">热搜:&nbsp;&nbsp;</span> 
+					<a v-for="h in hotquery" :href="'search.html#'+h.keyword">{{h.keyword}}</a>
+				</div>
+				<script type="text/javascript">
+					var a=new Vue({
+						el : ".search_tag",
+						data : {
+							hotquery : {}
+						},
+						created(){
+							axios.get("hotquery.do").then(res=>{
+								this.hotquery=res.data;
+							})
+						}
+					})
+				
+				</script>
+				<div class="search_div">
+					<form id="search_title_form" action="sell.html"
+						method="get">
+						<input placeholder="请输入关键字" class="queryinput"
+							style="width: 300px;" type="text" value="" name="q" id="q" v-model="name"><input
+							type="button" class="search_div_button" value="搜 索"
+							@click="search()">
+					</form>
+				</div>
+				<script type="text/javascript">
+							var v=new Vue({
+							el:".search_div",
+							data:{
+								name:""
+							},
+							methods:{
+								search(){
+									var params = new URLSearchParams();
+									params.append("name",this.name);
+									axios.post("queryname",params).then(res=>{
+									    if(res.data.code==1){
+											location.href="search.html#"+this.name;
+										}else{
+											alert(res.data.msg);
+										}
+									})
+								}
+							}
+						})
+				</script>
+				
+				<div class="clearfloat"></div>
+			</div>
+			<div class="content_left">
+				<!-- Vue的自定义组件必须被 Vue 对象管理 -->
+				<div id="luc">
+					<!-- 使用Vue的自定义组件 -->
+					<!-- 最热门店 -->
+					<hbs></hbs>
+					<!-- 最热个人 -->
+					<hotperson></hotperson>
+					<!-- 最多人关注 -->
+					<mul></mul>
+					<!-- 最近登录 -->
+					<ltusers></ltusers>
+					<!-- 最近注册 -->
+					<luc></luc>
+				</div>
+				<script type="text/javascript">
+					new Vue({
+						el:"#luc"
+					})
+				</script>
+			</div>
+			
+			<div class="content_right">
+				<div class="border_white padding_10">
+					<div class="home_book_block">
+						<div class="title">
+							<div class="left_title">好书推荐</div>
+							<div class="more_link">
+								<a
+									href="sell.html?sort=created_at.desc&amp;tag=recommend">更多&gt;</a>
+							</div>
+							<div class="clearfloat"></div>
+						</div>
+						<div class="book_list" >
+							<ul v-for="h in Hbooks">
+								<li><a :href="'book.html#' + h.id"
+									target="_blank"> <img class="book_pic_border"
+										:src="h.pic">
+								</a>
+									<p class="book_name">
+										<a target="_blank"
+											:href="'book.html#' + h.id">{{h.name}}</a>
+									</p>
+									<div class="price">
+										<div class="now_price">￥{{h.price}}</div>
+										<div class="origin_price">￥{{h.markPrice}}</div>
+										<div class="clearfloat"></div>
+									</div></li>
+								
+							</ul>
+							<div class="clearfloat"></div>
+						</div>
+					</div>
+					
+					
+					<div style="border-bottom: 1px solid rgb(255, 255, 255);"></div>
+					<div class="home_book_block">
+						<div class="title">
+							<div class="left_title">特惠书籍</div>
+							<div class="more_link">
+								<a
+									href="sell.html?sort=now_price&amp;tag=free">更多&gt;</a>
+							</div>
+							<div class="clearfloat"></div>
+						</div>
+						<div class="book_list" >
+							<ul v-for="t in Tbooks">
+								<li><a :href="'book.html#' + t.id"
+									target="_blank"> <img class="book_pic_border"
+										:src="t.pic"
+									>
+								</a>
+									<p class="book_name">
+										<a target="_blank"
+											:href="'book.html#' + t.id"
+											>{{t.name}}</a>
+									</p>
+									<div class="price">
+										<div class="now_price">￥{{t.price}}</div>
+										<div class="origin_price">￥{{t.markPrice}}</div>
+										<div class="clearfloat"></div>
+									</div></li>
+								
+							</ul>
+							<div class="clearfloat"></div>
+						</div>
+					</div>
+					<div style="border-bottom: 1px solid rgb(255, 255, 255);"></div>
+				</div>
+				<div style="position: fixed; top: 122px; right: 20px;">
+					<img style="width: 120px; margin-bottom: 10px;"
+						src="res/ios_download.jpg"><br> <img
+						style="width: 120px; margin-bottom: 10px;"
+						src="res/android_download.jpg">
+				</div>
+				
+			</div>
+			<script type="text/javascript">
+                         var vue=new Vue({
+                    	  el:".content_right",
+                    	  data:{
+                    		  Hbooks:[],
+                    		  Tbooks:[],
+                    	},
+                    	  created(){
+                    		  axios.get("Hbooks.do").then(res=>{
+                    			  this.Hbooks=res.data;
+                    		  }),
+                    		  axios.get("Tbooks.do").then(res=>{
+                    			  this.Tbooks=res.data;
+                    		  })
+                    	  }
+                      })
+                    
+                    
+                    </script>
+			
+			
+			<div class="clearfloat"></div>
+		</div>
+	</div>
+	
+	<div id="foot">
+	<foot></foot>	
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:"#foot"
+		})
+	</script>
+	<h1 class="jiushujie_slogan">买卖二手书，就上旧书街。旧书街二手书交易网-您身边的旧书网站</h1>
+</body>
+</html>

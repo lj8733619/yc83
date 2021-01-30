@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="keywords" content="旧书,二手书,二手教材,旧教材,校园书籍,校园旧书，旧书网">
+<meta name="description" content="买卖二手书，就上旧书街">
+<meta name="language" content="zh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="res/form.css">
+<link rel="stylesheet" type="text/css" href="res/pager.css">
+<link rel="stylesheet" type="text/css" href="res/ubm_basic.css">
+<link rel="shortcut icon"
+	href="http://cdnfile.jiushujie.com/images/ubm.ico" type="image/x-icon">
+<script type="text/javascript" src="https://lib.baomitu.com/vue/2.6.12/vue.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+<script type="text/javascript" src="js/jsj.js"></script>
+<title>买卖二手书,就上旧书街</title>
+</head>
+<body>
+	<div id="yetou">
+		<yetou></yetou>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#yetou"
+		})
+	</script>
+	<div id="top">
+		<top></top>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#top"
+		})
+	</script>
+
+	<div class="main_middle">
+		<div id="main_content" class="center_980">
+			<div class="content_left">
+				<div class="user_left_nav">
+					<div class="user_photo">
+						<div>
+							<img class="user_profile"
+								src="http://cdn.shujie.me/user/2020/12/11/11/26398619_u8qh0icocnbarbes.jpg!big"
+								alt="启航ing">
+						</div>
+						<div class="user_nav_info">
+							<ul>
+								<li>启航ing</li>
+								<li>男生</li>
+								<li>北京交通大学</li>
+								<li>上次登录:&nbsp;今天</li>
+								<li><a class="user_fan_faned_link"
+									href="user/26398619/follow">关注(2)</a>&nbsp;<a
+									class="user_fan_faned_link"
+									href="user/26398619/fan">粉丝(30)</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="self_introduction">
+						姓名: 徐先生<br>手机: 1597119****(下单后可见)<br>地址: 湖北省孝感市孝昌县
+					</div>
+					<input style="width: 300px;" class="button_user_action"
+						onclick="openLoginPageWithFrom();" name="yt2" type="button"
+						value="详细联系方式下单后可见">
+					<div class="clearfloat"></div>
+				</div>
+
+
+			</div>
+			<div class="content_right">
+				<div class="border_white padding_10">
+					<div style="float: left; margin: -6px 0 -2px 10px; width: 100%;">
+						<ul class="mypage_nav">
+							<!--        <li>
+            <a id="news_list_tab" href="/user/26398619/news">动态</a>
+        </li>-->
+							<li><a id="sell_list_tab" href="/user/26398619/sell.html">出售</a>
+							</li>
+							<!--        <li>
+            <a id="buy_list_tab" href="/user/26398619/buy" >求购</a>
+        </li>-->
+							<li><a id="follow_list_tab" href="follow.html"
+								class="selectedtab">关注</a></li>
+							<li><a id="fan_list_tab" href="/user/26398619/fan">粉丝</a></li>
+						</ul>
+					</div>
+					<div class="clearfloat"
+						style="border-top: 2px solid rgb(222, 222, 222); margin-bottom: 16px;"></div>
+					<div>
+					
+					
+						<div id="gridview-list-grid" class="grid-view">
+							<table class="items">
+								<thead>
+									<tr>
+										<th id="gridview-list-grid_c0">&nbsp;</th>
+										<th id="gridview-list-grid_c1">用户</th>
+										<th id="gridview-list-grid_c2">性别</th>
+										<th id="gridview-list-grid_c3">学校</th>
+										<th id="gridview-list-grid_c4"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="g in list" mclass="odd">
+										<td style="width: 30px;"><img class="user_pic_tiny"
+											:src="g.headImg"></td>
+										<td style="width: 200px;"><a
+											href="user/1730678" target="_blank">{{g.account}}</a></td>
+										<td style="width: 200px;">{{g.gender}}</td>
+										<td style="width: 200px;">{{g.schoolObj.name}}</td>
+										<td style="width: 100px;"><input
+											class="button_user_action" style="padding: 1px 3px;"
+											onclick=""
+											name="yt0" type="button" value="取消关注"></td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="keys" style="display: none"
+								title="/user/26398619/follow">
+								<span>1730678</span><span>540305</span>
+							</div>
+						</div>
+						
+						<script type="text/javascript">
+							var v = new Vue({
+								el:"#gridview-list-grid",
+								data:{
+									list : [],
+								},
+								created(){
+									axios.get("getLoginedUser.do").then(res=>{
+										this.fid = res.data.data.id;
+										axios.get("guanzhu?fid="+this.fid).then(res=>{
+											this.list=res.data;
+										})
+									})
+								}
+							})
+						</script>
+						
+					</div>
+				</div>
+			</div>
+			<div class="clearfloat"></div>
+		</div>
+	</div>
+
+	<div style="border-bottom: 1px solid rgb(255, 255, 255);"></div>
+	<div style="position: fixed; top: 122px; right: 20px;">
+		<img style="width: 120px; margin-bottom: 10px;"
+			src="res/ios_download.jpg"><br> <img
+			style="width: 120px; margin-bottom: 10px;"
+			src="res/android_download.jpg">
+	</div>
+	<div class="clearfloat"></div>
+	<div id="foot">
+	<foot></foot>	
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:"#foot"
+		})
+	</script>
+	<h1 class="jiushujie_slogan">买卖二手书，就上旧书街。旧书街二手书交易网-您身边的旧书网站</h1>
+</body>
+</html>

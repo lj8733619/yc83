@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="keywords" content="旧书,二手书,二手教材,旧教材,校园书籍,校园旧书，旧书网">
+<meta name="description" content="买卖二手书，就上旧书街">
+<meta name="language" content="zh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="res/form.css">
+<link rel="stylesheet" type="text/css" href="res/pager.css">
+<link rel="stylesheet" type="text/css" href="res/ubm_basic.css">
+<link rel="shortcut icon"
+	href="http://cdnfile.jiushujie.com/images/ubm.ico" type="image/x-icon">
+
+<script type="text/javascript" src="https://lib.baomitu.com/vue/2.6.12/vue.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+<script type="text/javascript" src="js/jsj.js"></script>
+
+<title>买卖二手书,就上旧书街</title>
+</head>
+<body>
+	<div id="yetou">
+		<yetou></yetou>
+	</div>
+	<script type="text/javascript">
+		var v119 = new Vue({
+			el:"#yetou"
+		})
+	</script>
+	<div id="top">
+		<top></top>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#top"
+		})
+	</script>
+
+	<div class="main_middle">
+		<div id="main_content" class="center_980">
+			<div id="pc">
+				<pc uid = "1"></pc>
+			</div>
+			<script type="text/javascript">
+				new Vue({
+					el : "#pc"
+				})
+			</script>
+			<div class="content_right">
+				<div class="border_white padding_10">
+					<form id="headImgForm">
+						<div style="float: left; text-align: center;">
+						
+							<img class="user_profile" v-if="lu.headImg"
+								:src="lu.headImg" alt="user profile">
+							<img class="user_profile" v-else
+								src="http://cdn.shujie.me/user/default.jpg" alt="user profile">
+	
+							<input type="file" style="display: none;" name="headImgFile"
+								id="headImgFile" @change="uploadHeadImg">
+							<br> <br> <a class="button_link"
+								href="javascript:headImgFile.click()">设置头像</a>
+								
+						</div>
+					</form>
+					<div class="align_left user_basic_info">
+						邮箱: {{lu.email}} <br> 昵称: {{lu.name}} <br> 性别: {{lu.gender}} <br>
+						学校: {{lu.school}} <br> 上次登录: {{lu.lastLoginTime}}
+					</div>
+					<br>
+					<div style="clear: both;"></div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				var v = new Vue({
+					el : ".content_right",
+					data : {
+						lu : {}
+					},
+					created(){
+						axios.get("getLoginedUser.do").then(res=>{
+							this.lu = res.data.data;
+						})
+					},
+					methods:{
+						uploadHeadImg(){
+							// 创建文件上传表单对象
+							var fd = new FormData(headImgForm);
+							axios.post("upload.do", fd).then(res=>{
+								if(res.data.code==1){
+									this.lu.headImg = res.data.data;
+								}else if(res.data.code==0){
+									alert(res.data.msg);
+								}
+							}) 
+						}
+					}
+				})
+			</script>
+			<div class="clearfloat"></div>
+		</div>
+	</div>
+
+	<div style="border-bottom: 1px solid rgb(255, 255, 255);"></div>
+	<div style="position: fixed; top: 122px; right: 20px;">
+		<img style="width: 120px; margin-bottom: 10px;"
+			src="res/ios_download.jpg"><br> <img
+			style="width: 120px; margin-bottom: 10px;"
+			src="res/android_download.jpg">
+	</div>
+	<div class="clearfloat"></div>
+	<div id="foot">
+	<foot></foot>	
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:"#foot"
+		})
+	</script>
+	<h1 class="jiushujie_slogan">买卖二手书，就上旧书街。旧书街二手书交易网-您身边的旧书网站</h1>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="keywords" content="旧书,二手书,二手教材,旧教材,校园书籍,校园旧书，旧书网">
+<meta name="description" content="买卖二手书，就上旧书街">
+<meta name="language" content="zh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="res/form.css">
+<link rel="stylesheet" type="text/css" href="res/pager.css">
+<link rel="stylesheet" type="text/css" href="res/ubm_basic.css">
+<link rel="shortcut icon"
+	href="http://cdnfile.jiushujie.com/images/ubm.ico" type="image/x-icon">
+
+<script type="text/javascript"
+	src="https://lib.baomitu.com/vue/2.6.12/vue.min.js"></script>
+<script type="text/javascript"
+	src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+<script type="text/javascript"
+	src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/jsj.js"></script>
+<title>买卖二手书,就上旧书街</title>
+</head>
+<body>
+	<div id="yetou">
+		<yetou></yetou>
+	</div>
+	<script type="text/javascript">
+		var v119 = new Vue({
+			el:"#yetou"
+		})
+	</script>
+	<div id="top">
+		<top></top>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#top"
+		})
+	</script>
+	<div class="main_middle">
+		<div id="main_content" class="center_980">
+			<div id="pc">
+				<pc uid="9"></pc>
+			</div>
+			<script type="text/javascript">
+				new Vue({
+					el : "#pc"
+				})
+			</script>
+			<div class="border_white padding_10">
+				<div id="gridview-list-grid" class="grid-view">
+
+					<table class="items">
+						<thead>
+							<tr>
+								<th style="width: 50px;" id="gridview-list-grid_c1">序号</th>
+								<th style="width: 50px;" id="gridview-list-grid_c1">收货人</th>
+								<th style="width: 150px;" id="gridview-list-grid_c2">电话</th>
+								<th style="width: 70px;" id="gridview-list-grid_c3">邮编</th>
+								<th style="width: 50px;" id="gridview-list-grid_c4">地址</th>
+								<th style="width: 150px;" id="gridview-list-grid_c5">详细地址</th>
+								<th style="width: 100px;" id="gridview-list-grid_c6">操作</th>
+								<th style="width: 100px;" id="gridview-list-grid_c6">操作</th>
+							</tr>
+						</thead>
+						<tbody v-for="(h,index) in hlist">
+							<tr class="odd" style="background-color: rgb(255, 255, 255);">
+								<td>{{index+1}}</td>
+								<td>{{h.addrName}}</td>
+								<td>{{h.addrPhone}}</td>
+								<td>{{h.addrPost}}</td>
+								<td>{{h.addrProvince}}</td>
+								<td>{{h.addrDesc}}</td>
+								<td>
+									<a :href="'change-addr.html#'+h.id">修改</a>
+									<button @click="del(h.id)">删除</button>
+								</td>
+								<td>
+									<button v-if="h.code==0" @click="changeCode(h.id)">设置默认</button>
+									<span v-if="h.code==1" style="color: red;">默认地址</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="keys" style="display: none" title="/my/sellOrderList"></div>
+				</div>
+			</div>
+
+			<script type="text/javascript">
+				var v1 = new Vue({
+					el : ".items",
+					data : {
+						hlist : [],
+						dlist : {},
+						errors : {
+							addrName : "",
+							addrPhone : "",
+							addrPost : ""
+						}
+					},
+					created(){
+							axios.get("getaddr.do").then(res=>{
+								this.hlist = res.data;
+								//alert(res.data);
+						}),
+						axios.get("getAllProvince.do").then(res=>{
+							this.dlist = res.data;
+						})
+					},
+					methods:{
+							del(id){
+								if(confirm("确认删除该收获地址???")){
+									axios.get("deleteAddr.do?id="+id).then(res=>{
+										if(res.data.code==1){
+											alert(res.data.msg);
+											location.reload();
+										}
+									})
+								}
+							},
+							changeCode(id){
+								axios.get("changeCode.do?id="+id).then(res=>{
+									if(res.data.code==1){
+										alert(res.data.msg);
+										location.reload();
+									}
+								})
+							}
+							
+					}
+				})
+			
+			</script>
+			<div class="clearfloat"></div>
+		</div>
+	</div>
+
+	<div style="border-bottom: 1px solid rgb(255, 255, 255);"></div>
+	<div style="position: fixed; top: 122px; right: 20px;">
+		<img style="width: 120px; margin-bottom: 10px;"
+			src="res/ios_download.jpg"><br> <img
+			style="width: 120px; margin-bottom: 10px;"
+			src="res/android_download.jpg">
+	</div>
+	<div class="clearfloat"></div>
+	<div id="foot">
+		<foot></foot>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:"#foot"
+		})
+	</script>
+	<h1 class="jiushujie_slogan">买卖二手书，就上旧书街。旧书街二手书交易网-您身边的旧书网站</h1>
+</body>
+</html>

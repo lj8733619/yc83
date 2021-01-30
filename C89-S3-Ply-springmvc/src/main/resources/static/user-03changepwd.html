@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="keywords" content="旧书,二手书,二手教材,旧教材,校园书籍,校园旧书，旧书网">
+<meta name="description" content="买卖二手书，就上旧书街">
+<meta name="language" content="zh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="res/form.css">
+<link rel="stylesheet" type="text/css" href="res/pager.css">
+<link rel="stylesheet" type="text/css" href="res/ubm_basic.css">
+<link rel="shortcut icon"
+	href="http://cdnfile.jiushujie.com/images/ubm.ico" type="image/x-icon">
+<script type="text/javascript" src="https://lib.baomitu.com/vue/2.6.12/vue.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+<script type="text/javascript" src="js/jsj.js"></script>
+<title>买卖二手书,就上旧书街</title>
+</head>
+<body>
+	<div id="yetou">
+		<yetou></yetou>
+	</div>
+	<script type="text/javascript">
+		var v119 = new Vue({
+			el:"#yetou"
+		})
+	</script>
+	<div id="top">
+		<top></top>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#top"
+		})
+	</script>
+	<div class="main_middle">
+		<div id="main_content" class="center_980">
+						<div id="pc">
+				<pc uid = "3"></pc>
+			</div>
+			<script type="text/javascript">
+				new Vue({
+					el : "#pc"
+				})
+			</script>
+			<div class="content_right">
+				<div class="border_white padding_10">
+					<div class="form">
+						<form id="reset-pwd-form" action="/changepwd" method="post">
+							<input type="hidden"
+								value="aldwNTRsWTk3QTdqbnFsb0w3eUdkWE41NEZrNHdxfnBVszCUZnhj1OTN9RXoDkEBa_S8ZcvJbtfVa7Wuuai2Hw=="
+								name="YII_CSRF_TOKEN">
+							<table class="ubm_input">
+								<tbody>
+									<tr>
+										<td><label for="User_password_old">原密码</label></td>
+										<td><input maxlength="32" class="input_public"
+											name="User[password_old]" id="User_password_old"
+											type="text" value="****"></td>
+										<td><div id="User_password_oldTip" class="onShow"
+												style="margin: 0px; padding: 0px; background: transparent;"></div></td>
+									</tr>
+									<tr>
+										<td><label for="User_password">新密码</label></td>
+										<td><input maxlength="32" class="input_public"
+											name="User[password]" id="User_password" type="password"
+											value="" v-model="Npwd"></td>
+										<td><div id="User_passwordTip" class="onShow"
+												style="margin: 0px; padding: 0px; background: transparent;"></div></td>
+									</tr>
+									<tr>
+										<td><label for="User_password_repeat">重复密码</label></td>
+										<td><input maxlength="32" class="input_public"
+											name="User[password_repeat]" id="User_password_repeat"
+											type="password" v-model="repwd"></td>
+										<td><div id="User_password_repeatTip" class="onShow"
+												style="margin: 0px; padding: 0px; background: transparent;"></div></td>
+									</tr>
+								</tbody>
+							</table>
+
+
+							<div class="margin_left_134">
+								<input id="submit_button" class="button" name="yt0"
+									type="button" value="提交修改" @click="modif()">
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				var v = new Vue({
+					el : ".content_right",
+					data : {
+						lu : {},
+						Npwd:"",
+						repwd:"",
+					},
+					created(){
+						axios.get("getLoginedUser.do").then(res=>{
+							this.lu = res.data.data;
+						})
+					},
+					methods:{
+						modif(){
+							var param = new URLSearchParams();
+							param.append('Npwd',this.Npwd);
+							param.append('repwd',this.repwd);
+							axios.post("updatePwd.do",param).then(res=>{
+								   alert(res.data.msg);
+							 
+						});
+						}
+					}
+					
+				})
+			</script>
+			
+			<div class="clearfloat"></div>
+		</div>
+	</div>
+	<div style="border-bottom: 1px solid rgb(255, 255, 255);"></div>
+	<div style="position: fixed; top: 122px; right: 20px;">
+		<img style="width: 120px; margin-bottom: 10px;"
+			src="res/ios_download.jpg"><br> <img
+			style="width: 120px; margin-bottom: 10px;"
+			src="res/android_download.jpg">
+	</div>
+	<div class="clearfloat"></div>
+	<div id="foot">
+	<foot></foot>	
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:"#foot"
+		})
+	</script>
+	<h1 class="jiushujie_slogan">买卖二手书，就上旧书街。旧书街二手书交易网-您身边的旧书网站</h1>
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="keywords" content="旧书,二手书,二手教材,旧教材,校园书籍,校园旧书，旧书网">
+<meta name="description" content="买卖二手书，就上旧书街">
+<meta name="language" content="zh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="res/form.css">
+<link rel="stylesheet" type="text/css" href="res/pager.css">
+<link rel="stylesheet" type="text/css" href="res/ubm_basic.css">
+<link rel="shortcut icon"
+	href="http://cdnfile.jiushujie.com/images/ubm.ico" type="image/x-icon">
+	
+<script type="text/javascript" src="https://lib.baomitu.com/vue/2.6.12/vue.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+<script type="text/javascript" src="js/jsj.js"></script>
+<title>买卖二手书,就上旧书街</title>
+</head>
+<body>
+	<div id="yetou">
+		<yetou></yetou>
+	</div>
+	<script type="text/javascript">
+		var v119 = new Vue({
+			el:"#yetou"
+		})
+	</script>
+	<div id="top">
+		<top></top>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#top"
+		})
+	</script>
+
+	<div class="main_middle">
+		<div id="main_content" class="center_980">
+			<div class="content_left">
+				<div class="border_white align_center padding_10">
+					<div
+						style="font-size: 30px; font-weight: bold; color: rgb(167, 167, 167);">还未注册旧书街?</div>
+					<br> <input onclick="location.href=register.html"
+						class="button" name="yt0" type="button" value="立即注册">
+				</div>
+				<div style="margin-top: 20px;">
+					<div id="luc">
+						<luc></luc>
+					</div>
+					<script type="text/javascript">
+						new Vue({
+							el : "#luc"
+						})
+					</script>
+				</div>
+			</div>
+			<div class="content_right">
+				<div class="form border_white padding_10">
+					<div class="page_title">登录旧书街</div>
+					<form id="login-form" action="/login.html" method="post">
+						<input type="hidden"
+							value="aldwNTRsWTk3QTdqbnFsb0w3eUdkWE41NEZrNHdxfnBVszCUZnhj1OTN9RXoDkEBa_S8ZcvJbtfVa7Wuuai2Hw=="
+							name="YII_CSRF_TOKEN"> <br>
+						<table class="ubm_input">
+							<tbody>
+								<tr>
+									<td><label for="LoginForm_email" class="required">账号
+											<span class="required">*</span>
+									</label></td>
+									<td><input v-model="user.account" maxlength="45" class="input_public"
+										tabindex="1" name="LoginForm[email]" id="LoginForm_email"
+										type="text" style="color: rgb(153, 153, 153);"></td>
+									<td><div id="LoginForm_emailTip" class="onShow"
+											style="margin: 0px; padding: 0px; background: transparent;"></div></td>
+								</tr>
+								<tr>
+									<td><label for="LoginForm_password" class="required">密码
+											<span class="required">*</span>
+									</label></td>
+									<td><input v-model="user.pwd" maxlength="45" class="input_public"
+										tabindex="2" name="LoginForm[password]"
+										id="LoginForm_password" type="password"></td>
+									<td><div id="LoginForm_passwordTip" class="onShow"
+											style="margin: 0px; padding: 0px; background: transparent;"></div></td>
+								</tr>
+							</tbody>
+						</table>
+						<br>
+						<div class="margin_left_134">
+							<input @click.prevent="login" id="submit_button" class="button" tabindex="4"
+								type="submit" name="yt1" value="登录">&nbsp;&nbsp;<a
+								href="/set/askReset">忘记密码？</a>
+						</div>
+						<br>
+					</form>
+					<script type="text/javascript">
+						var v = new Vue({
+							el : "#login-form",
+							data : {
+								user : { account:"" , pwd:""}
+							},
+							methods : {
+								login(){
+									var p = new URLSearchParams();
+									p.append("account",this.user.account);
+									p.append("pwd",this.user.pwd);
+									axios.post("login.do", p).then(res=>{
+										if(res.data.code == 1){
+											alert(res.data.msg);
+											location.href="index.html";
+										} else {
+											alert(res.data.msg);
+										}
+									});
+								}
+							}
+						
+						})
+					
+					</script>
+				</div>
+				<div class="form border_white"
+					style="margin-top: 10px; padding: 9px;">
+					<div style="margin-bottom: 10px;">使用注册过的第三方合作帐号登录</div>
+					<a title="使用人人帐号登录"
+						href="http://graph.renren.com/oauth/authorize?client_id=202ffbc2069a4abfba8f4896ac915f08&amp;redirect_uri=http%3A%2F%2Fwww.jiushujie.com%2FsocialLogin&amp;response_type=code&amp;state=renren&amp;scope=status_update+publish_feed"><img
+						src="images/renren.png"></a><a
+						title="使用QQ帐号登录" style="margin-left: 8px;"
+						href="https://graph.qq.com/oauth2.0/authorize?response_type=code&amp;client_id=101031644&amp;redirect_uri=http%3A%2F%2Fwww.jiushujie.com%2FsocialLogin&amp;state=qq&amp;scope=get_user_info,add_t,add_pic_t"><img
+						src="images/qq.png"></a><a
+						title="使用豆瓣帐号登录" style="margin-left: 8px;"
+						href="https://www.douban.com/service/auth2/auth?client_id=02edcd5d50d4becb08c96817f27e3c61&amp;redirect_uri=http%3A%2F%2Fwww.jiushujie.com%2FsocialLogin&amp;response_type=code&amp;state=douban"><img
+						src="images/douban.png"></a><a
+						title="使用新浪帐号登录" style="margin-left: 8px;"
+						href="https://api.weibo.com/oauth2/authorize?client_id=2971047545&amp;redirect_uri=http%3A%2F%2Fwww.jiushujie.com%2FsocialLogin&amp;response_type=code&amp;state=sina"><img
+						src="images/sina.png"></a>
+				</div>
+			</div>
+			<div class="clearfloat"></div>
+		</div>
+	</div>
+	<div style="border-bottom: 1px solid rgb(255, 255, 255);"></div>
+	<div style="position: fixed; top: 122px; right: 20px;">
+		<img style="width: 120px; margin-bottom: 10px;"
+			src="res/ios_download.jpg"><br> <img
+			style="width: 120px; margin-bottom: 10px;"
+			src="res/android_download.jpg">
+	</div>
+	<div class="clearfloat"></div>
+	<div id="foot">
+	<foot></foot>	
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:"#foot"
+		})
+	</script>
+	<h1 class="jiushujie_slogan">买卖二手书，就上旧书街。旧书街二手书交易网-您身边的旧书网站</h1>
+</body>
+</html>

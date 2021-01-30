@@ -1,0 +1,42 @@
+# yml we文件使用缩进表示层级关系,缩进必须是空格
+#同一级别有相同的缩进
+#配置项之间可以有空行
+# :+空格，后面就是配置值
+server:
+  port: 80
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/C-S3-Plj-aop
+    username: root
+    password: a
+    # -号分割符
+    #driver-class-name: com.mysql.jdbc.Driver
+    # 驼峰命名法
+    driverClassName: com.mysql.jdbc.Driver
+ 
+# 日志输出配置   
+logging:
+   level:
+   #指定包下日志 输出设定           邮件   hrktzshsklxucfig
+   #日志级别：debug,info,warn,error            chaalyswvgtiebdf
+     com:
+      yc:
+       CZS3Pljspringboot:
+          dao: deBug
+          web: warn
+#相同的配置节点只能出现一次
+   mail:
+     host: smtp.qq.com
+     username: 2098292371@qq.com
+     password: chaalyswvgtiebdf
+     default-encoding: UTF-8
+     
+mail: 
+   from:
+      addr: 2098292371@qq.com
+   
+      
+    
+
+    
+

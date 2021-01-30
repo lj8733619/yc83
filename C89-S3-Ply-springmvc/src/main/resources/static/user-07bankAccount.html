@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="keywords" content="旧书,二手书,二手教材,旧教材,校园书籍,校园旧书，旧书网">
+<meta name="description" content="买卖二手书，就上旧书街">
+<meta name="language" content="zh">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" type="text/css" href="res/form.css">
+<link rel="stylesheet" type="text/css" href="res/pager.css">
+<link rel="stylesheet" type="text/css" href="res/ubm_basic.css">
+<link rel="shortcut icon"
+	href="http://cdnfile.jiushujie.com/images/ubm.ico" type="image/x-icon">
+
+<title>买卖二手书,就上旧书街</title>
+<script type="text/javascript" src="https://lib.baomitu.com/vue/2.6.12/vue.min.js"></script>
+<script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+<script type="text/javascript"
+	src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="js/jsj.js"></script>
+
+</head>
+<body>
+	<div id="yetou">
+		<yetou></yetou>
+	</div>
+	<script type="text/javascript">
+		var v119 = new Vue({
+			el:"#yetou"
+		})
+	</script>
+	<div id="top">
+		<top></top>
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el : "#top"
+		})
+	</script>
+	<div class="main_middle">
+		<div id="main_content" class="center_980">
+			<div id="pc">
+				<pc uid = "7"></pc>
+			</div>
+			<script type="text/javascript">
+				new Vue({
+					el : "#pc"
+				})
+			</script>
+			<div class="content_right">
+				<div class="border_white padding_10">
+					<div class="form">
+						<div class="page_title">收款账号设置</div>
+						<form id="user-introduction-form" action="login.html"
+							method="post">
+							<input type="hidden"
+								value="aldwNTRsWTk3QTdqbnFsb0w3eUdkWE41NEZrNHdxfnBVszCUZnhj1OTN9RXoDkEBa_S8ZcvJbtfVa7Wuuai2Hw=="
+								name="YII_CSRF_TOKEN">
+							<table class="ubm_input">
+								<tbody>
+									<tr>
+										<td><label for="BankAccount_type" class="required">账号类型
+												<span class="required">*</span>
+										</label></td>
+										<td><select class="ubm_textinput" v-model="user.collectType"
+											name="collectType" id="BankAccount_type">
+												<option value="" selected="selected"></option>
+												<option value="支付宝">支付宝</option>
+												<option value="中国银行">中国银行</option>
+												<option value="中国工商银行">中国工商银行</option>
+												<option value="中国建设银行">中国建设银行</option>
+												<option value="中国农业银行">中国农业银行</option>
+												<option value="招商银行">招商银行</option>
+										</select></td>
+										<td><div>{{errors.collectType}}</div></td>
+									</tr>
+									<tr>
+										<td><label for="BankAccount_realname" class="required">开户名
+												<span class="required">*</span>
+										</label></td>
+										<td><input v-model="user.collectName" maxlength="45" class="ubm_textinput"
+											name="collectName" id="BankAccount_realname"
+											type="text"></td>
+										<td><div>{{errors.collectName}}</div></td>
+									</tr>
+									<tr>
+										<td><label for="BankAccount_account" class="required">账号
+												<span class="required">*</span>
+										</label></td>
+										<td><input v-model="user.collectAccount" maxlength="45" class="ubm_textinput"
+											name="collectType" id="BankAccount_account"
+											type="text"></td>
+										<td><div>{{errors.collectAccount}}</div></td>
+									</tr>
+								</tbody>
+							</table>
+							
+							<div class="margin_left_134">
+								<input id="submit_button" class="button" type="button"
+							 		@click="sub"	name="yt0" value="提交">
+							</div>
+						</form>
+						<script type="text/javascript">
+						var v = new Vue({
+							el : "#user-introduction-form",
+							data : {
+								user : {
+									collectType : "",
+									collectType : "",
+									collectName : "",
+								},
+								errors : {
+									collectType : "",
+									collectType : "",
+									collectName : "",
+								},
+							},created(){
+								axios.get("getLoginedUser.do").then(res=>{
+	                    			  this.user=res.data.data;
+	                    		  });
+							},
+							methods : {
+								sub(){
+									var type=document.getElementById("BankAccount_type");
+									var index1=type.selectedIndex;
+									this.user.collectType=type.options[index1].value;
+									var param = new URLSearchParams();
+									param.append('collectType',this.user.collectType);
+									param.append('collectAccount',this.user.collectAccount);
+									param.append('collectName',this.user.collectName);
+									axios.post("addCollect.do",param).then(res=>{
+										if(res.data.code==1){
+											alert(res.data.msg);
+										}
+										// 清除之前的错误提示
+										for( let e in this.errors){  // let 定义的局部变量  ~=  var
+											var na = document.getElementsByName(e);
+											$(na).css('boxShadow','');
+											this.errors[e] = '';
+										}
+										// 如果code不等于1，表示失败，要将错误提示展示在页面
+										if(res.data.code != 1){
+											// 将报错信息展示到对应的字段下面
+											var es = res.data.data;
+											for( let e of es){  // == java for( e : es)
+												var na = document.getElementsByName(e.field);
+												$(na).css("boxShadow","0px 0px 5px 3px red");	
+												this.errors[e.field] = e.defaultMessage;  // [ ] 对对象的数字哪个复制
+											}
+										}
+										
+									});
+								}
+							}
+						})
+					</script>
+					</div>
+				</div>
+			</div>
+			<div class="clearfloat"></div>
+		</div>
+	</div>
+
+	<div style="border-bottom: 1px solid rgb(255, 255, 255);"></div>
+	<div style="position: fixed; top: 122px; right: 20px;">
+		<img style="width: 120px; margin-bottom: 10px;"
+			src="res/ios_download.jpg"><br> <img
+			style="width: 120px; margin-bottom: 10px;"
+			src="res/android_download.jpg">
+	</div>
+	<div class="clearfloat"></div>
+	<div id="foot">
+	<foot></foot>	
+	</div>
+	<script type="text/javascript">
+		new Vue({
+			el:"#foot"
+		})
+	</script>
+	<h1 class="jiushujie_slogan">买卖二手书，就上旧书街。旧书街二手书交易网-您身边的旧书网站</h1>
+</body>
+</html>
